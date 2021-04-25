@@ -1,13 +1,16 @@
 import React from "react";
+import Header from "../../components/Header";
+import MovieList from "../../components/MovieList";
+import Nav from "../../components/Nav";
 
 const HomePage = () => {
   return (
     <div>
       <h1>It is home page</h1>
 
-      <div>It is NAV</div>
-      <div>It is HEADER</div>
-      <div>It is MAIN</div>
+      <Nav />
+      <Header />
+      <MovieList />
     </div>
   );
 };

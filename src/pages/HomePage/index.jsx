@@ -3,11 +3,11 @@ import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
 import Nav from "../../components/Nav";
 
+import "./HomePageStyles.scss";
+
 const HomePage = () => {
   return (
-    <div>
-      <h1>It is home page</h1>
-
+    <div className="homePage">
       <Nav />
       <Header />
       <MovieList />

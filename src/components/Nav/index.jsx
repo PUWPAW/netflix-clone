@@ -8,7 +8,7 @@ const Nav = () => {
   const [show, setShow] = React.useState(false);
 
   const showHandler = () => {
-    if (window.pageYOffset > 100) {
+    if (window.pageYOffset > 80) {
       setShow(true);
     } else {
       setShow(false);

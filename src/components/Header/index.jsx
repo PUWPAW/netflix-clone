@@ -10,7 +10,7 @@ const Header = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(`${requests.fetchNetflixOriginals}`);
+      const response = await axios.get(requests.fetchNetflixOriginals);
       const { data } = response;
 
       setMovie(

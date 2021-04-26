@@ -4,24 +4,16 @@ import axios from "../../utils/axios";
 
 import "./HeaderStyles.scss";
 import { IMG_PATH, requests } from "../../consts";
+import useRequest from "../../hooks/useRequest";
 
 const Header = () => {
-  const [movie, setMovie] = React.useState([]);
-
-  React.useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(requests.fetchNetflixOriginals);
-      const { data } = response;
-
-      setMovie(
-        data.results[Math.floor(Math.random() * data.results.length - 1)]
-      );
-    }
-    fetchData();
-  }, []);
+  const [movie, loading, error] = useRequest(
+    axios.get(requests.fetchNetflixOriginals),
+    true
+  );
 
   return (
-    <div
+    <header
       className="header"
       style={{
         backgroundImage: `url(${IMG_PATH + movie?.backdrop_path})`,
@@ -40,7 +32,7 @@ const Header = () => {
         </div>
       </div>
       <div className="header_fade" />
-    </div>
+    </header>
   );
 };
 

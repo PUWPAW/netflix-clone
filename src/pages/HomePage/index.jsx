@@ -7,11 +7,11 @@ import "./HomePageStyles.scss";
 
 const HomePage = () => {
   return (
-    <div className="homePage">
+    <>
       <Nav />
       <Header />
       <MovieList />
-    </div>
+    </>
   );
 };
 

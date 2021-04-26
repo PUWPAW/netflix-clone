@@ -24,10 +24,10 @@ const Nav = () => {
   }, []);
 
   return (
-    <div className={`${show ? "nav nav_bg" : "nav"}`}>
+    <nav className={`${show ? "nav nav_bg" : "nav"}`}>
       <img className="nav__logo" src={logo} alt="netflix-logo" />
       <img className="nav__account" src={account} alt="account-img" />
-    </div>
+    </nav>
   );
 };
 

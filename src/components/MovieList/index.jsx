@@ -7,7 +7,7 @@ import "./MovieListStyles.scss";
 
 const MovieList = () => {
   return (
-    <div className="movieList">
+    <main className="movieList">
       <Row
         genre="Netflix originals"
         request={requests.fetchNetflixOriginals}
@@ -20,7 +20,7 @@ const MovieList = () => {
       <Row genre="Horror movies" request={requests.fetchHorrorMovies} />
       <Row genre="Romance movies" request={requests.fetchRomanceMovies} />
       <Row genre="Documentaries" request={requests.fetchDocumentaries} />
-    </div>
+    </main>
   );
 };
 

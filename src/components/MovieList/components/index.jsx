@@ -6,25 +6,17 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import plug from "../../../images/plug.jpg";
+import useRequest from "../../../hooks/useRequest";
 
+import plug from "../../../images/plug.jpg";
 import "./RowStyles.scss";
 
 const Row = ({ genre, request, isLarge }) => {
-  const [movies, setMovies] = React.useState([]);
   const [offset, setOffset] = React.useState(0);
+  const [movies, loading, error] = useRequest(axios.get(`${request}`));
 
   const step = 140;
   const maxOffset = 3080;
-
-  React.useEffect(() => {
-    async function fetchData() {
-      const response = await axios.get(`${request}`);
-      const { data } = response;
-      setMovies(data.results);
-    }
-    fetchData();
-  }, [request]);
 
   const offsetNextHandler = () => {
     setOffset((current) => {

@@ -1,11 +1,21 @@
 import React from "react";
 import axios from "../../../utils/axios";
 import { IMG_PATH } from "../../../consts";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import plug from "../../../images/plug.jpg";
 
 import "./RowStyles.scss";
 
 const Row = ({ genre, request, isLarge }) => {
   const [movies, setMovies] = React.useState([]);
+  const [offset, setOffset] = React.useState(0);
+
+  const step = 140;
+  const maxOffset = 3080;
 
   React.useEffect(() => {
     async function fetchData() {
@@ -16,10 +26,24 @@ const Row = ({ genre, request, isLarge }) => {
     fetchData();
   }, [request]);
 
+  const offsetNextHandler = () => {
+    setOffset((current) => {
+      const res = current === maxOffset ? 0 : current + step;
+      return res;
+    });
+  };
+
+  const offsetPrevHandler = () => {
+    setOffset((current) => {
+      const res = current === 0 ? maxOffset : current - step;
+      return res;
+    });
+  };
+
   return (
     <div className="row">
       <h2 className="row__title">{genre}</h2>
-      <div className="row__inner">
+      <div style={{ left: -offset + "px" }} className="row__inner">
         {movies &&
           movies.map((movie) =>
             (isLarge && movie.poster_path) ||
@@ -34,9 +58,22 @@ const Row = ({ genre, request, isLarge }) => {
                 }
                 alt={movie.original_title}
               />
-            ) : null
+            ) : (
+              <img
+                key={movie.id}
+                className="row__img"
+                src={plug}
+                alt={movie.original_title}
+              />
+            )
           )}
       </div>
+      <button className="btn btn__prev" onClick={offsetPrevHandler}>
+        <FontAwesomeIcon icon={faChevronLeft} color="white" size="lg" />
+      </button>
+      <button className="btn btn__next" onClick={offsetNextHandler}>
+        <FontAwesomeIcon icon={faChevronRight} color="white" size="lg" />
+      </button>
     </div>
   );
 };

@@ -4,13 +4,21 @@ import axios from "../../utils/axios";
 
 import "./HeaderStyles.scss";
 import { IMG_PATH, requests } from "../../consts";
-import useRequest from "../../hooks/useRequest";
 
 const Header = () => {
-  const [movie, loading, error] = useRequest(
-    axios.get(requests.fetchNetflixOriginals),
-    true
-  );
+  const [movie, setMovie] = React.useState([]);
+
+  React.useEffect(() => {
+    async function fetchRandomMovie() {
+      const response = await axios.get(requests.fetchNetflixOriginals);
+      const { data } = response;
+
+      setMovie(
+        data.results[Math.floor(Math.random() * data.results.length - 1)]
+      );
+    }
+    fetchRandomMovie();
+  }, []);
 
   return (
     <header

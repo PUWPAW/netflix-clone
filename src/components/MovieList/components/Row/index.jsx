@@ -20,13 +20,17 @@ const Row = ({ genre, request, isLarge }) => {
 
   React.useEffect(() => {
     async function fetchData() {
-      const response = await axios.get(request);
-      const { data } = response;
-      setMovies(data.results);
+      try {
+        const response = await axios.get(request);
+        const { data } = response;
+        setMovies(data.results);
+      } catch (e) {
+        console.log(e.massage);
+      }
     }
 
     fetchData();
-  }, []);
+  }, [request]);
 
   const offsetNextHandler = () => {
     setOffset((current) => {
@@ -48,29 +52,40 @@ const Row = ({ genre, request, isLarge }) => {
   return (
     <div className="row">
       <h2 className="row__title">{genre}</h2>
-      <div style={{ left: -offset + "px" }} className="row__inner">
-        {movies &&
-          movies.slice(0, count).map((movie) => (
-            <Suspense
-              key={movie.id}
-              fallback={<div style={{ color: "white" }}>Loading...</div>}>
-              <Img movie={movie} isLarge={isLarge} />
-            </Suspense>
-          ))}
-      </div>
-      <button
-        disabled={offset === 0}
+      <Suspense fallback={<div style={{ color: "white" }}>Loading...</div>}>
+        <div style={{ left: -offset + "px" }} className="row__inner">
+          {movies &&
+            movies
+              .slice(0, count)
+              .map((movie) => (
+                <Img
+                  key={movie.id}
+                  src={isLarge ? movie.poster_path : movie.backdrop_path}
+                  isLarge={isLarge}
+                  alt={movie.name || movie.original_title || movie.title}
+                />
+              ))}
+        </div>
+      </Suspense>
+
+      <FontAwesomeIcon
         className="btn btn__prev"
-        onClick={offsetPrevHandler}>
-        <FontAwesomeIcon
-          icon={faChevronLeft}
-          color={offset === 0 ? "grey" : "white"}
-          size="lg"
-        />
-      </button>
-      <button className="btn btn__next" onClick={offsetNextHandler}>
-        <FontAwesomeIcon icon={faChevronRight} color="white" size="lg" />
-      </button>
+        name="prev"
+        disabled={offset === 0}
+        onClick={offsetPrevHandler}
+        icon={faChevronLeft}
+        color={offset === 0 ? "grey" : "white"}
+        size="lg"
+      />
+
+      <FontAwesomeIcon
+        className="btn btn__next"
+        name="next"
+        onClick={offsetNextHandler}
+        icon={faChevronRight}
+        color="white"
+        size="lg"
+      />
     </div>
   );
 };

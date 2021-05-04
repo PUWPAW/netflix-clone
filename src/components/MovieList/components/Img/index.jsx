@@ -2,19 +2,21 @@ import React from "react";
 import { IMG_PATH } from "../../../../consts";
 import plug from "../../../../images/plug.jpg";
 
-const Img = ({ movie, isLarge = false }) => {
-  return (isLarge && movie.poster_path) || (!isLarge && movie.backdrop_path) ? (
+import "./ImgStyles.scss";
+
+const Img = ({ src, alt, isLarge }) => {
+  return src ? (
     <img
-      className="row__img"
-      src={
-        isLarge
-          ? IMG_PATH + movie?.poster_path
-          : IMG_PATH + movie?.backdrop_path
-      }
-      alt={movie.original_title}
+      className={`img ${isLarge ? "img-large" : "img-small"}`}
+      src={IMG_PATH + src}
+      alt={alt}
     />
   ) : (
-    <img className="row__img" src={plug} alt={movie.original_title} />
+    <img
+      className={`img ${isLarge ? "img-large" : "img-small"}`}
+      src={plug}
+      alt={alt}
+    />
   );
 };
 

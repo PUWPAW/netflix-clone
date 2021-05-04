@@ -1,0 +1,16 @@
+.img {
+  display: block;
+  margin: 0.7rem;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+  width: 20rem;
+  &-large {
+    height: 30rem;
+  }
+  &-small {
+    height: 11.3rem;
+  }
+  &:hover {
+    transform: scale(1.08);
+  }
+}

@@ -10,12 +10,16 @@ const Header = () => {
 
   React.useEffect(() => {
     async function fetchRandomMovie() {
-      const response = await axios.get(requests.fetchNetflixOriginals);
-      const { data } = response;
+      try {
+        const response = await axios.get(requests.fetchNetflixOriginals);
+        const { data } = response;
 
-      setMovie(
-        data.results[Math.floor(Math.random() * data.results.length - 1)]
-      );
+        setMovie(
+          data.results[Math.floor(Math.random() * data.results.length - 1)]
+        );
+      } catch (e) {
+        console.log(e.message);
+      }
     }
     fetchRandomMovie();
   }, []);

@@ -25,7 +25,7 @@ const Row = ({ genre, request, isLarge }) => {
         const { data } = response;
         setMovies(data.results);
       } catch (e) {
-        console.log(e.massage);
+        console.log(e);
       }
     }
 

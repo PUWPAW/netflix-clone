@@ -1,9 +1,9 @@
 import React from "react";
 import { truncate } from "../../utils/truncate";
 import axios from "../../utils/axios";
+import { IMG_PATH, requests } from "../../consts";
 
 import "./HeaderStyles.scss";
-import { IMG_PATH, requests } from "../../consts";
 
 const Header = () => {
   const [movie, setMovie] = React.useState([]);

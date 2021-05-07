@@ -1,35 +1,57 @@
 import React from "react";
-import Nav from "../../components/Nav";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router";
+import LayoutMainPage from "../../components/LayoutMainPage";
+import { registrationAtction } from "../../redux/actions/actionCreators";
 
 import "./MainPageStyles.scss";
 
 const MainPage = () => {
+  const [value, setValue] = React.useState("");
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isInvalid = value === "" ? true : false;
+
+  const changeInputHandler = (e) => {
+    setValue(e.target.value);
+  };
+
+  const registrationHandler = (e) => {
+    e.preventDefault();
+    dispatch(registrationAtction(value));
+    history.push("/signup");
+  };
+
   return (
-    <div className="mainPage">
-      <Nav />
-      <div className="mainPage__inner">
-        <h1 className="mainPage__title">
-          Фильмы, сериалы и многое другое без ограничений.
-        </h1>
-        <h2 className="mainPage__subtitle">
-          Смотрите где угодно. Отменить подписку можно в любое время.
-        </h2>
-        <form className="mainPage__form">
-          <h3 className="mainPage__form-title">
-            Готовы смотреть? Введите адрес электронной почты, чтобы оформить или
-            возобновить подписку.
-          </h3>
-          <div className="mainPage__wrapper">
-            <input
-              className="mainPage__input"
-              type="email"
-              placeholder="Введите адрес электронной почты"
-            />
-            <button className="mainPage__btn">Начать смотреть</button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <LayoutMainPage>
+      <h1 className="title">
+        Фильмы, сериалы и многое другое без ограничений.
+      </h1>
+      <h2 className="subtitle">
+        Смотрите где угодно. Отменить подписку можно в любое время.
+      </h2>
+      <form className="form">
+        <h3 className="form__title">
+          Готовы смотреть? Введите адрес электронной почты, чтобы оформить или
+          возобновить подписку.
+        </h3>
+        <div className="form__wrapper">
+          <input
+            value={value}
+            onChange={changeInputHandler}
+            className="form__input"
+            type="email"
+            placeholder="Введите адрес электронной почты"
+          />
+          <button
+            className="form__btn"
+            onClick={registrationHandler}
+            disabled={isInvalid}>
+            Начать смотреть
+          </button>
+        </div>
+      </form>
+    </LayoutMainPage>
   );
 };
 
